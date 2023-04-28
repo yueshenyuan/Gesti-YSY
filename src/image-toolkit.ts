@@ -417,7 +417,8 @@ class ImageToolkit implements GestiController {
      */
     public addImage(ximage: XImage): Promise<boolean> {
         this.debug("Add a Ximage");
-        if (ximage.constructor.name != "XImage") throw Error("不是XImage类");
+        if (ximage.constructor.name != "XImage" &&
+            !(ximage.data && ((ximage.data || {}).constructor || {}).name == 'ImageBitmap')) throw Error("不是XImage类");
         const image: XImage = ximage;
         image.width *= image.scale;
         image.height *= image.scale;
